@@ -98,14 +98,14 @@ SuffixTree = (function() {
   SuffixTree.prototype.add = function(suffix) {
     all_suffixes = this.suffixes();
     for (var suffTree in all_suffixes){
-      if (all_suffixes[suffTree](suffix[0])){
-        
-      } else {
-        
+      for (var index in suffix){
+        if (all_suffixes[suffTree](suffix.slice(index))){
+            ///call add again
+        } else {
+          this.suffix = new SuffixTree();
+        }
       }
     }
-    this.suffix = new SuffixTree();
-
   };
 
   // this just returns the SuffixTree to the outside world for usage
