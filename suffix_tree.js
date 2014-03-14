@@ -81,11 +81,31 @@ SuffixTree = (function() {
   // However, this should work just as easily for a simple
   // word, like banana :)
   // the meat and potatoes are cooked by SuffixTree.prototype.add
-  SuffixTree.prototype.learn = function(suffix) {
+  SuffixTree.prototype.learn = function(word) {
+  // go over entered word and for each suffix call add
+    // var word = word || "";
+    var new_word = word + SuffixTree.delimiter;
+    var i = new_word.length - 1;
+
+    for(i; i>=0; i--){
+      var suffix = new_word.slice(i);
+      this.add(suffix);
+    }
+
   };
 
   // this is the meat and potatoes function that cooks this excellent meal
   SuffixTree.prototype.add = function(suffix) {
+    all_suffixes = this.suffixes();
+    for (var suffTree in all_suffixes){
+      if (all_suffixes[suffTree](suffix[0])){
+        
+      } else {
+        
+      }
+    }
+    this.suffix = new SuffixTree();
+
   };
 
   // this just returns the SuffixTree to the outside world for usage
