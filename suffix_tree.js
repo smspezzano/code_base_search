@@ -86,26 +86,83 @@ SuffixTree = (function() {
     // var word = word || "";
     var new_word = word + SuffixTree.delimiter;
     var i = new_word.length - 1;
-
+    // iterate over the suffixes
+    // iterate over allbesides suffix with $
+    //this["$"] = new suffix
     for(i; i>=0; i--){
+      // for each suffix add the suffix to 
       var suffix = new_word.slice(i);
       this.add(suffix);
     }
 
   };
+  
+// SuffixTree.prototype.add = function(suffix) {
+//     all_suffixes = this.suffixes();
+//     for (var suffTree in all_suffixes){
+//       for (var index in suffix){
+//         if (all_suffixes[suffTree][0]===(suffix.slice(index))){
+//             ///call add again
+//         } else {
+//           this.suffix = new SuffixTree();
+//         }
+//       }
+//     }
+//   };
 
   // this is the meat and potatoes function that cooks this excellent meal
   SuffixTree.prototype.add = function(suffix) {
     all_suffixes = this.suffixes();
-    for (var suffTree in all_suffixes){
-      for (var index in suffix){
-        if (all_suffixes[suffTree](suffix.slice(index))){
-            ///call add again
-        } else {
-          this.suffix = new SuffixTree();
+
+    // does this suffix exist in the current node
+    // if suffix[0] is === one of the keys[0]
+    // then do   
+    // else do this[suffix] = new SuffixTree
+
+    //want to determine how far into the string there is a match
+
+    //things that are matched, deleted key
+      //then have node dangling in space
+      //var old_node = this
+      //create a new suffix with remainder
+      // left branch with remainder
+      // right branch with key of old_node
+      // anytime i break a connection the remainder becomes a left node
+      // other operations on the right
+      // make na$ right node
+
+    // we have a match and need to check rest of string against rest of node
+      //both branches
+      //call add on the node that is matched by the left overs
+      // add(nana$ on THAT node) NOT the root node
+        //see if match exist deeper into string
+        //finally split on matched string
+        //
+        // this.slice(-1) = new SuffixTree;
+        //   all_suffixes[suffTree] = this.slice(-2);
+        // } else (all_suffixes[suffTree]) {
+        //     this.suffix = new SuffixTree();
+    var slice_point;
+    if (!this.is_leaf()) {                            
+      for (var suffTree in all_suffixes){
+        if (all_suffixes[suffTree][0] === suffix[0]){
+          for (var i = 1; i < suffix.length; i++){
+            if(all_suffixes[suffTree][i] === suffix[i]){
+              slice_point = i+1;
+            } else {
+              break;
+            }
+          }
+          var hit_node_right = all_suffixes[suffTree].slice(0, slice_point);
+          hit_node_right = new SuffixTree();
+          var hit_node_left = all_suffixes[suffTree].slice(slice_point);
+          hit_node_left = new SuffixTree();
+          var suff_node = suffix.slice(slice_point);
         }
       }
     }
+    this[suffix] = new SuffixTree();
+
   };
 
   // this just returns the SuffixTree to the outside world for usage
